@@ -1,0 +1,100 @@
+.titelll{
+    padding-bottom: 4px;
+    font-size: 28px;
+}
+  .category-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+  }
+  
+  .category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .category-card {
+    border: 1px solid #e5e7eb;
+    border-bottom: 1px solid #ddd; 
+    border-radius: 12px;
+    background-color: #ffffff;
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-left: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .category-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .category-label {
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  .category-value {
+    color: #111827;
+    font-weight: 500;
+  }
+/* Laporan modal */
+.laporan-container {
+  padding: 24px 16px;
+  min-height: 100vh;
+}
+
+.laporan-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .laporan-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .laporan-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.laporan-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  text-align: center;
+  gap: 12px;
+}
+
+.laporan-empty-image {
+  width: 144px;
+  height: 144px;
+  opacity: 0.8;
+}
+
+.laporan-empty-title {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600;
+  color: #374151; /* gray-700 */
+}
+
+.laporan-empty-subtitle {
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280; /* gray-500 */
+}
+.button-detail{
+  background-color: black;
+}
+.button-detail{
+  background-color: #FE5D01;
+}

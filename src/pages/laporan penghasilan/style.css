@@ -1,0 +1,54 @@
+.boddy{
+    background-color: #fff;
+}
+.penghasilan-container {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .penghasilan-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 8px;
+  }
+  .hasil{
+    padding-bottom: 16px;
+  }
+  .penghasilan-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .penghasilan-entry {
+    border: 1px solid #e5e7eb;
+    border-bottom: 1px solid #ddd; 
+    border-radius: 12px;
+    background-color: #ffffff;
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+  
+  .penghasilan-row {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 16px;
+  }
+  
+  .penghasilan-row.no-padding {
+    padding-bottom: 0;
+  }
+  
+  .penghasilan-label {
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  .penghasilan-value {
+    font-weight: 500;
+    text-align: right;
+    color: #111827;
+  }
