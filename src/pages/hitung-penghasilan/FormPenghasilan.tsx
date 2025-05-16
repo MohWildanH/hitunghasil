@@ -1,8 +1,8 @@
 "use client";
 
 import "./FormPenghasilan.css";
-import { RiAddLine, RiCalculatorFill, RiSaveFill } from "@remixicon/react";
-import 'remixicon/fonts/remixicon.css'
+import { RiCalculatorFill, RiSaveFill } from "@remixicon/react";
+import "remixicon/fonts/remixicon.css";
 import { useForm, Controller } from "react-hook-form";
 import {
   Form,
@@ -18,7 +18,6 @@ import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import apiInstance from "../../api/api";
-
 
 // Schema validation using zod
 const formSchema = z.object({
@@ -130,8 +129,12 @@ const formSchema = z.object({
   pengeluaran: z
     .array(
       z.object({
-        nama: z.string().min(1, { message: "Nama Pengeluaran tidak boleh kosong" }),
-        nominal: z.number().min(1, { message: "Nominal harus lebih besar dari 0" }),
+        nama: z
+          .string()
+          .min(1, { message: "Nama Pengeluaran tidak boleh kosong" }),
+        nominal: z
+          .number()
+          .min(1, { message: "Nominal harus lebih besar dari 0" }),
       })
     )
     .min(1, "Setidaknya ada satu pengeluaran"),
@@ -139,14 +142,12 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-
 function TakaranInput({
   name,
   label,
   value,
   onChange,
   formControl,
-  className,
 }: {
   name: keyof FormValues;
   label: string;
@@ -198,26 +199,18 @@ function PenghitungPenghasilan() {
     useState<number>(0);
   const [hargaJualPertamax, setHargaJualPertamax] = useState<number>(0);
   const [takaranAwalPertamax, setTakaranAwalPertamax] = useState<number>(0);
-  const [takaranAkhir1Pertamax, setTakaranAkhir1Pertamax] =
-    useState<number>(0);
-  const [takaranAkhir2Pertamax, setTakaranAkhir2Pertamax] =
-    useState<number>(0);
-  const [takaranAkhir3Pertamax, setTakaranAkhir3Pertamax] =
-    useState<number>(0);
-  const [takaranAkhir4Pertamax, setTakaranAkhir4Pertamax] =
-    useState<number>(0);
-  const [takaranAkhir5Pertamax, setTakaranAkhir5Pertamax] =
-    useState<number>(0);
+  const [takaranAkhir1Pertamax, setTakaranAkhir1Pertamax] = useState<number>(0);
+  const [takaranAkhir2Pertamax, setTakaranAkhir2Pertamax] = useState<number>(0);
+  const [takaranAkhir3Pertamax, setTakaranAkhir3Pertamax] = useState<number>(0);
+  const [takaranAkhir4Pertamax, setTakaranAkhir4Pertamax] = useState<number>(0);
+  const [takaranAkhir5Pertamax, setTakaranAkhir5Pertamax] = useState<number>(0);
   const [hargaJualDexlite, setHargaJualDexlite] = useState<number>(0);
   const [takaranAwalDexlite, setTakaranAwalDexlite] = useState<number>(0);
-  const [takaranAkhir1Dexlite, setTakaranAkhir1Dexlite] =
-    useState<number>(0);
+  const [takaranAkhir1Dexlite, setTakaranAkhir1Dexlite] = useState<number>(0);
   const [hargaJualBiosolar, setHargaJualBiosolar] = useState<number>(0);
   const [takaranAwalBiosolar, setTakaranAwalBiosolar] = useState<number>(0);
-  const [takaranAkhir1Biosolar, setTakaranAkhir1Biosolar] =
-    useState<number>(0);
-  const [takaranAkhir2Biosolar, setTakaranAkhir2Biosolar] =
-    useState<number>(0);
+  const [takaranAkhir1Biosolar, setTakaranAkhir1Biosolar] = useState<number>(0);
+  const [takaranAkhir2Biosolar, setTakaranAkhir2Biosolar] = useState<number>(0);
   const [hargaJualTurbo, setHargaJualTurbo] = useState<number>(0);
   const [takaranAwalTurbo, setTakaranAwalTurbo] = useState<number>(0);
   const [takaranAkhir1Turbo, setTakaranAkhir1Turbo] = useState<number>(0);
@@ -233,9 +226,9 @@ function PenghitungPenghasilan() {
   const [sisaTurbo, setSisaTurbo] = useState<number | null>(null);
   const [totalHasilAkhir, setTotalHasilAkhir] = useState<number | null>(null);
 
-  const [pengeluaranList, setPengeluaranList] = useState<{ nama: string; nominal?: number }[]>([
-    { nama: "", nominal: undefined },
-  ]);
+  const [pengeluaranList, setPengeluaranList] = useState<
+    { nama: string; nominal?: number }[]
+  >([{ nama: "", nominal: undefined }]);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -271,7 +264,6 @@ function PenghitungPenghasilan() {
   });
 
   useEffect(() => {
-
     form.setValue("hargaJualPertalite", hargaJualPertalite);
     form.setValue("takaranAwalPertalite", takaranAwalPertalite);
     form.setValue("takaranAkhir1Pertalite", takaranAkhir1Pertalite);
@@ -305,7 +297,6 @@ function PenghitungPenghasilan() {
         nominal: item.nominal ?? 0, // Set default value to 0 if undefined
       }))
     );
-
   }, [
     hargaJualPertalite,
     takaranAwalPertalite,
@@ -337,33 +328,33 @@ function PenghitungPenghasilan() {
     form,
   ]);
 
-  const handleCalculate = (values: FormValues, type: string) => {
-    const hargaJualPertalite = Number(values.hargaJualPertalite)
-    const takaranAwalPertalite = Number(values.takaranAwalPertalite)
-    const takaranAkhir1Pertalite = Number(values.takaranAkhir1Pertalite)
-    const takaranAkhir2Pertalite = Number(values.takaranAkhir2Pertalite)
-    const takaranAkhir3Pertalite = Number(values.takaranAkhir3Pertalite)
-    const takaranAkhir4Pertalite = Number(values.takaranAkhir4Pertalite)
-    const takaranAkhir5Pertalite = Number(values.takaranAkhir5Pertalite)
-    const takaranAkhir6Pertalite = Number(values.takaranAkhir6Pertalite)
-    const takaranAkhir7Pertalite = Number(values.takaranAkhir7Pertalite)
-    const hargaJualPertamax = Number(values.hargaJualPertamax)
-    const takaranAwalPertamax = Number(values.takaranAwalPertamax)
-    const takaranAkhir1Pertamax = Number(values.takaranAkhir1Pertamax)
-    const takaranAkhir2Pertamax = Number(values.takaranAkhir2Pertamax)
-    const takaranAkhir3Pertamax = Number(values.takaranAkhir3Pertamax)
-    const takaranAkhir4Pertamax = Number(values.takaranAkhir4Pertamax)
-    const takaranAkhir5Pertamax = Number(values.takaranAkhir5Pertamax)
-    const hargaJualDexlite = Number(values.hargaJualDexlite)
-    const takaranAwalDexlite = Number(values.takaranAwalDexlite)
-    const takaranAkhir1Dexlite = Number(values.takaranAkhir1Dexlite)
-    const hargaJualBiosolar = Number(values.hargaJualBiosolar)
-    const takaranAwalBiosolar = Number(values.takaranAwalBiosolar)
-    const takaranAkhir1Biosolar = Number(values.takaranAkhir1Biosolar)
-    const takaranAkhir2Biosolar = Number(values.takaranAkhir2Biosolar)
-    const hargaJualTurbo = Number(values.hargaJualTurbo)
-    const takaranAwalTurbo = Number(values.takaranAwalTurbo)
-    const takaranAkhir1Turbo = Number(values.takaranAkhir1Turbo)
+  const handleCalculate = (values: FormValues, _type: string) => {
+    const hargaJualPertalite = Number(values.hargaJualPertalite);
+    const takaranAwalPertalite = Number(values.takaranAwalPertalite);
+    const takaranAkhir1Pertalite = Number(values.takaranAkhir1Pertalite);
+    const takaranAkhir2Pertalite = Number(values.takaranAkhir2Pertalite);
+    const takaranAkhir3Pertalite = Number(values.takaranAkhir3Pertalite);
+    const takaranAkhir4Pertalite = Number(values.takaranAkhir4Pertalite);
+    const takaranAkhir5Pertalite = Number(values.takaranAkhir5Pertalite);
+    const takaranAkhir6Pertalite = Number(values.takaranAkhir6Pertalite);
+    const takaranAkhir7Pertalite = Number(values.takaranAkhir7Pertalite);
+    const hargaJualPertamax = Number(values.hargaJualPertamax);
+    const takaranAwalPertamax = Number(values.takaranAwalPertamax);
+    const takaranAkhir1Pertamax = Number(values.takaranAkhir1Pertamax);
+    const takaranAkhir2Pertamax = Number(values.takaranAkhir2Pertamax);
+    const takaranAkhir3Pertamax = Number(values.takaranAkhir3Pertamax);
+    const takaranAkhir4Pertamax = Number(values.takaranAkhir4Pertamax);
+    const takaranAkhir5Pertamax = Number(values.takaranAkhir5Pertamax);
+    const hargaJualDexlite = Number(values.hargaJualDexlite);
+    const takaranAwalDexlite = Number(values.takaranAwalDexlite);
+    const takaranAkhir1Dexlite = Number(values.takaranAkhir1Dexlite);
+    const hargaJualBiosolar = Number(values.hargaJualBiosolar);
+    const takaranAwalBiosolar = Number(values.takaranAwalBiosolar);
+    const takaranAkhir1Biosolar = Number(values.takaranAkhir1Biosolar);
+    const takaranAkhir2Biosolar = Number(values.takaranAkhir2Biosolar);
+    const hargaJualTurbo = Number(values.hargaJualTurbo);
+    const takaranAwalTurbo = Number(values.takaranAwalTurbo);
+    const takaranAkhir1Turbo = Number(values.takaranAkhir1Turbo);
 
     if (
       isNaN(hargaJualPertalite) ||
@@ -398,36 +389,43 @@ function PenghitungPenghasilan() {
     }
 
     const totalTakaranAkhirPertalite =
-      (takaranAkhir1Pertalite + takaranAkhir2Pertalite + takaranAkhir3Pertalite + takaranAkhir4Pertalite + takaranAkhir5Pertalite + takaranAkhir6Pertalite + takaranAkhir7Pertalite);
-    const sisaPertalite = (takaranAwalPertalite - totalTakaranAkhirPertalite);
+      takaranAkhir1Pertalite +
+      takaranAkhir2Pertalite +
+      takaranAkhir3Pertalite +
+      takaranAkhir4Pertalite +
+      takaranAkhir5Pertalite +
+      takaranAkhir6Pertalite +
+      takaranAkhir7Pertalite;
+    const sisaPertalite = takaranAwalPertalite - totalTakaranAkhirPertalite;
     setSisaPertalite(sisaPertalite);
-    const resultpertalite =
-      hargaJualPertalite * totalTakaranAkhirPertalite;
+    const resultpertalite = hargaJualPertalite * totalTakaranAkhirPertalite;
     setHasilPertalite(resultpertalite);
 
     const totalTakaranAkhirPertamax =
-      ((takaranAwalPertamax - takaranAkhir1Pertamax - takaranAkhir2Pertamax - takaranAkhir3Pertamax - takaranAkhir4Pertamax - takaranAkhir5Pertamax));
+      takaranAwalPertamax -
+      takaranAkhir1Pertamax -
+      takaranAkhir2Pertamax -
+      takaranAkhir3Pertamax -
+      takaranAkhir4Pertamax -
+      takaranAkhir5Pertamax;
     setSisaPertamax(totalTakaranAkhirPertamax);
-    const resultpertamax =
-      hargaJualPertamax * totalTakaranAkhirPertamax;
+    const resultpertamax = hargaJualPertamax * totalTakaranAkhirPertamax;
     setHasilPertamax(resultpertamax);
 
-    const totalTakaranAkhirDexlite = (takaranAwalDexlite - takaranAkhir1Dexlite);
+    const totalTakaranAkhirDexlite = takaranAwalDexlite - takaranAkhir1Dexlite;
     setSisaDexlite(totalTakaranAkhirDexlite);
-    const resultdexlite =
-      hargaJualDexlite * totalTakaranAkhirDexlite;
+    const resultdexlite = hargaJualDexlite * totalTakaranAkhirDexlite;
     setHasilDexlite(resultdexlite);
 
-    const totalTakaranAkhirBiosolar = ((takaranAwalBiosolar - takaranAkhir1Biosolar - takaranAkhir2Biosolar));
+    const totalTakaranAkhirBiosolar =
+      takaranAwalBiosolar - takaranAkhir1Biosolar - takaranAkhir2Biosolar;
     setSisaBiosolar(totalTakaranAkhirBiosolar);
-    const resultbiosolar =
-      hargaJualBiosolar * totalTakaranAkhirBiosolar;
+    const resultbiosolar = hargaJualBiosolar * totalTakaranAkhirBiosolar;
     setHasilBiosolar(resultbiosolar);
 
-    const totalTakaranAkhirTurbo = ((takaranAwalTurbo - takaranAkhir1Turbo));
+    const totalTakaranAkhirTurbo = takaranAwalTurbo - takaranAkhir1Turbo;
     setSisaTurbo(totalTakaranAkhirTurbo);
-    const resultturbo =
-      hargaJualTurbo * totalTakaranAkhirTurbo;
+    const resultturbo = hargaJualTurbo * totalTakaranAkhirTurbo;
     setHasilTurbo(resultturbo);
 
     const totalHasilBahanBakar =
@@ -437,8 +435,6 @@ function PenghitungPenghasilan() {
       resultbiosolar +
       resultturbo;
 
-
-
     const totalPengeluaran = pengeluaranList.reduce((acc, pengeluaran) => {
       return acc + (pengeluaran.nominal ?? 0);
     }, 0);
@@ -447,10 +443,7 @@ function PenghitungPenghasilan() {
     setTotalHasilAkhir(totalHasilAkhir);
   };
   const handleAddPengeluaran = () => {
-    setPengeluaranList((prev) => [
-      ...prev,
-      { nama: "", nominal: undefined },
-    ]);
+    setPengeluaranList((prev) => [...prev, { nama: "", nominal: undefined }]);
   };
   const handleRemovePengeluaran = (index: number) => {
     setPengeluaranList((prev) => prev.filter((_, idx) => idx !== index));
@@ -462,9 +455,10 @@ function PenghitungPenghasilan() {
   // }
 
   const handleSave = async (values: FormValues) => {
-    const namaPengeluaran = values.pengeluaran.length > 0
-      ? values.pengeluaran[0].nama  // Gunakan nama pengeluaran pertama
-      : '';
+    const namaPengeluaran =
+      values.pengeluaran.length > 0
+        ? values.pengeluaran[0].nama // Gunakan nama pengeluaran pertama
+        : "";
     const requestData = {
       id_user: 14,
       namaFile: values.namaFile,
@@ -475,7 +469,10 @@ function PenghitungPenghasilan() {
       hasilBiosolar: hasilBiosolar,
       hasilKeseluruhan: totalHasilAkhir,
       namaPengeluaran: namaPengeluaran, // Kirim nama pengeluaran pertama sebagai string
-      nominalPengeluaran: values.pengeluaran.reduce((sum, item) => sum + item.nominal, 0), // Misalnya jumlahkan nominal pengeluaran
+      nominalPengeluaran: values.pengeluaran.reduce(
+        (sum, item) => sum + item.nominal,
+        0
+      ), // Misalnya jumlahkan nominal pengeluaran
       hasilTotal: totalHasilAkhir,
       pertalite: [
         {
@@ -535,7 +532,10 @@ function PenghitungPenghasilan() {
     };
 
     try {
-      const response = await apiInstance.post('/penghasilan/create', requestData);
+      const response = await apiInstance.post(
+        "/penghasilan/create",
+        requestData
+      );
       console.log("Data berhasil disimpan:", response.data);
       // Tindakan setelah berhasil, seperti mengupdate UI atau memberikan notifikasi
     } catch (error) {
@@ -548,7 +548,9 @@ function PenghitungPenghasilan() {
       <div className="card p-6">
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((values) => handleCalculate(values, 'namaFile'))}
+            onSubmit={form.handleSubmit((values) =>
+              handleCalculate(values, "namaFile")
+            )}
             className="space-y-6"
           >
             <FormField
@@ -560,7 +562,7 @@ function PenghitungPenghasilan() {
                   <FormControl>
                     <Input
                       placeholder="Nama File"
-                       className="custom-input"
+                      className="custom-input"
                       {...field}
                       value={field.value || ""}
                     />
@@ -576,8 +578,9 @@ function PenghitungPenghasilan() {
         <h2 className="text-xl font-bold">Penghasilan Pertalite</h2>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((values) => handleCalculate(values, 'pertalite'))}
-            
+            onSubmit={form.handleSubmit((values) =>
+              handleCalculate(values, "pertalite")
+            )}
           >
             {/* Input Harga Jual Pertalite */}
             <FormField
@@ -590,7 +593,7 @@ function PenghitungPenghasilan() {
                     <Input
                       type="number"
                       placeholder="Harga Jual Pertalite"
-                       className="custom-input"
+                      className="custom-input"
                       step="1"
                       {...field}
                       value={field.value || ""}
@@ -615,7 +618,7 @@ function PenghitungPenghasilan() {
                     <Input
                       type="number"
                       placeholder="Takaran Awal Pertalite"
-                       className="custom-input"
+                      className="custom-input"
                       step="1"
                       {...field}
                       value={field.value || ""}
@@ -631,117 +634,118 @@ function PenghitungPenghasilan() {
 
             {/* Input Takaran Akhir */}
             <FormItem>
-        <FormLabel>Takaran Akhir Pertalite 1</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertalite 1 kontol (Liter)"
-        value={takaranAkhir1Pertalite}
-        onChange={(e) => 
-        setTakaranAkhir1Pertalite(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
-      <FormItem>
-        <FormLabel>Takaran Akhir Pertalite 2</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertalite 2 (Liter)"
-        value={takaranAkhir2Pertalite}
-        onChange={(e) => 
-        setTakaranAkhir2Pertalite(Number(e.target.value) || 0)
-        }
-      />
-       </FormControl>
-      </FormItem>
-      <FormItem>
-        <FormLabel>Takaran Akhir Pertalite 3</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertalite 3 (Liter)"
-        value={takaranAkhir3Pertalite}
-        onChange={(e) => 
-        setTakaranAkhir3Pertalite(Number(e.target.value) || 0)
-        }
-      />
-       </FormControl>
-      </FormItem>
-      <FormItem>
-        <FormLabel>Takaran Akhir Pertalite 4</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertalite 4 (Liter)"
-        value={takaranAkhir4Pertalite}
-        onChange={(e) => 
-        setTakaranAkhir4Pertalite(Number(e.target.value) || 0)
-        }
-      />
-       </FormControl>
-      </FormItem>
-      <FormItem>
-        <FormLabel>Takaran Akhir Pertalite 5</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertalite 5 (Liter)"
-        value={takaranAkhir5Pertalite}
-        onChange={(e) => 
-        setTakaranAkhir5Pertalite(Number(e.target.value) || 0)
-        }
-      />
-       </FormControl>
-      </FormItem>
-      <FormItem>
-        <FormLabel>Takaran Akhir Pertalite 6</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertalite 6 (Liter)"
-        value={takaranAkhir6Pertalite}
-        onChange={(e) => 
-        setTakaranAkhir6Pertalite(Number(e.target.value) || 0)
-        }
-      />
-       </FormControl>
-      </FormItem>
-      <FormItem>
-        <FormLabel>Takaran Akhir Pertalite 7</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertalite 7 (Liter)"
-        value={takaranAkhir7Pertalite}
-        onChange={(e) => 
-        setTakaranAkhir7Pertalite(Number(e.target.value) || 0)
-        }
-      />
-       </FormControl>
-      </FormItem>
+              <FormLabel>Takaran Akhir Pertalite 1</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertalite 1 kontol (Liter)"
+                  value={takaranAkhir1Pertalite}
+                  onChange={(e) =>
+                    setTakaranAkhir1Pertalite(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertalite 2</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertalite 2 (Liter)"
+                  value={takaranAkhir2Pertalite}
+                  onChange={(e) =>
+                    setTakaranAkhir2Pertalite(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertalite 3</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertalite 3 (Liter)"
+                  value={takaranAkhir3Pertalite}
+                  onChange={(e) =>
+                    setTakaranAkhir3Pertalite(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertalite 4</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertalite 4 (Liter)"
+                  value={takaranAkhir4Pertalite}
+                  onChange={(e) =>
+                    setTakaranAkhir4Pertalite(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertalite 5</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertalite 5 (Liter)"
+                  value={takaranAkhir5Pertalite}
+                  onChange={(e) =>
+                    setTakaranAkhir5Pertalite(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertalite 6</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertalite 6 (Liter)"
+                  value={takaranAkhir6Pertalite}
+                  onChange={(e) =>
+                    setTakaranAkhir6Pertalite(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertalite 7</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertalite 7 (Liter)"
+                  value={takaranAkhir7Pertalite}
+                  onChange={(e) =>
+                    setTakaranAkhir7Pertalite(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
             <FormItem>
               <FormLabel>Sisa Pertalite yang tersedia</FormLabel>
               <FormControl>
                 <Input
                   type="number"
                   value={sisaPertalite ?? ""}
-                  disabled className="custom-input"
+                  disabled
+                  className="custom-input"
                   placeholder="Sisa Pertalite yang tersedia"
                 />
               </FormControl>
@@ -750,7 +754,7 @@ function PenghitungPenghasilan() {
               <FormLabel>Hasil Perhitungan</FormLabel>
               <FormControl>
                 <Input
-                className="custom-input"
+                  className="custom-input"
                   type="number"
                   value={hasilPertalite ?? ""}
                   disabled
@@ -765,8 +769,9 @@ function PenghitungPenghasilan() {
         <h2 className="text-xl font-bold">Penghasilan Pertamax</h2>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((values) => handleCalculate(values, 'pertamax'))}
-        
+            onSubmit={form.handleSubmit((values) =>
+              handleCalculate(values, "pertamax")
+            )}
           >
             <FormField
               control={form.control}
@@ -778,7 +783,7 @@ function PenghitungPenghasilan() {
                     <Input
                       type="number"
                       placeholder="Harga Jual Pertamax"
-                       className="custom-input"
+                      className="custom-input"
                       step="1"
                       {...field}
                       value={field.value || ""}
@@ -803,7 +808,7 @@ function PenghitungPenghasilan() {
                     <Input
                       type="number"
                       placeholder="Takaran Awal Pertamax"
-                       className="custom-input"
+                      className="custom-input"
                       step="1"
                       {...field}
                       value={field.value || ""}
@@ -819,100 +824,100 @@ function PenghitungPenghasilan() {
 
             {/* Input Takaran Akhir */}
             <FormItem>
-        <FormLabel>Takaran Akhir Pertamax 1</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertamax (Liter)"
-        value={takaranAkhir1Pertamax}
-        onChange={(e) => 
-        setTakaranAkhir1Pertamax(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
-  <FormItem>
-        <FormLabel>Takaran Akhir Pertamax 2</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertamax 2 (Liter)"
-        value={takaranAkhir2Pertamax}
-        onChange={(e) => 
-        setTakaranAkhir2Pertamax(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
-  <FormItem>
-        <FormLabel>Takaran Akhir Pertamax 3</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertamax 3 (Liter)"
-        value={takaranAkhir3Pertamax}
-        onChange={(e) => 
-        setTakaranAkhir3Pertamax(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
-  <FormItem>
-        <FormLabel>Takaran Akhir Pertamax 4</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertamax 4 (Liter)"
-        value={takaranAkhir2Pertamax}
-        onChange={(e) => 
-        setTakaranAkhir4Pertamax(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
-  <FormItem>
-        <FormLabel>Takaran Akhir Pertamax 2</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertamax 2 (Liter)"
-        value={takaranAkhir2Pertamax}
-        onChange={(e) => 
-        setTakaranAkhir2Pertamax(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
-  <FormItem>
-        <FormLabel>Takaran Akhir Pertamax 5</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertamax 5 (Liter)"
-        value={takaranAkhir5Pertamax}
-        onChange={(e) => 
-        setTakaranAkhir5Pertamax(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
+              <FormLabel>Takaran Akhir Pertamax 1</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertamax (Liter)"
+                  value={takaranAkhir1Pertamax}
+                  onChange={(e) =>
+                    setTakaranAkhir1Pertamax(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertamax 2</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertamax 2 (Liter)"
+                  value={takaranAkhir2Pertamax}
+                  onChange={(e) =>
+                    setTakaranAkhir2Pertamax(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertamax 3</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertamax 3 (Liter)"
+                  value={takaranAkhir3Pertamax}
+                  onChange={(e) =>
+                    setTakaranAkhir3Pertamax(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertamax 4</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertamax 4 (Liter)"
+                  value={takaranAkhir2Pertamax}
+                  onChange={(e) =>
+                    setTakaranAkhir4Pertamax(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertamax 2</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertamax 2 (Liter)"
+                  value={takaranAkhir2Pertamax}
+                  onChange={(e) =>
+                    setTakaranAkhir2Pertamax(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertamax 5</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertamax 5 (Liter)"
+                  value={takaranAkhir5Pertamax}
+                  onChange={(e) =>
+                    setTakaranAkhir5Pertamax(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
             <FormItem>
               <FormLabel>Sisa Pertamax yang tersedia</FormLabel>
               <FormControl>
                 <Input
-                className="custom-input"
+                  className="custom-input"
                   type="number"
                   value={sisaPertamax ?? ""}
                   disabled
@@ -924,7 +929,7 @@ function PenghitungPenghasilan() {
               <FormLabel>Hasil Perhitungan</FormLabel>
               <FormControl>
                 <Input
-                className="custom-input"
+                  className="custom-input"
                   type="number"
                   value={hasilPertamax ?? ""}
                   disabled
@@ -939,8 +944,9 @@ function PenghitungPenghasilan() {
         <h2 className="text-xl font-bold">Penghasilan Dexlite</h2>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((values) => handleCalculate(values, 'dexlite'))}
-          
+            onSubmit={form.handleSubmit((values) =>
+              handleCalculate(values, "dexlite")
+            )}
           >
             {/* Input Harga Jual Pertalite */}
             <FormField
@@ -953,7 +959,7 @@ function PenghitungPenghasilan() {
                     <Input
                       type="number"
                       placeholder="Harga Jual Dexlite"
-                       className="custom-input"
+                      className="custom-input"
                       step="1"
                       {...field}
                       value={field.value || ""}
@@ -978,7 +984,7 @@ function PenghitungPenghasilan() {
                     <Input
                       type="number"
                       placeholder="Takaran Awal Dexlite"
-                       className="custom-input"
+                      className="custom-input"
                       step="1"
                       {...field}
                       value={field.value || ""}
@@ -993,21 +999,21 @@ function PenghitungPenghasilan() {
             />
 
             {/* Input Takaran Akhir */}
-         <FormItem>
-        <FormLabel>Takaran Akhir Dexlite </FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Dexlite (Liter)"
-        value={takaranAkhir1Dexlite}
-        onChange={(e) => 
-        setTakaranAkhir1Dexlite(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Dexlite </FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Dexlite (Liter)"
+                  value={takaranAkhir1Dexlite}
+                  onChange={(e) =>
+                    setTakaranAkhir1Dexlite(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
             <FormItem>
               <FormLabel>Sisa Dexlite yang tersedia</FormLabel>
               <FormControl className="custom-input">
@@ -1016,7 +1022,6 @@ function PenghitungPenghasilan() {
                   value={sisaDexlite ?? ""}
                   disabled
                   placeholder="Sisa Dexlite yang tersedia"
-                  
                 />
               </FormControl>
             </FormItem>
@@ -1039,8 +1044,9 @@ function PenghitungPenghasilan() {
         <h2 className="text-xl font-bold">Penghasilan Biosolar</h2>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((values) => handleCalculate(values, 'biosolar'))}
-      
+            onSubmit={form.handleSubmit((values) =>
+              handleCalculate(values, "biosolar")
+            )}
           >
             <FormField
               control={form.control}
@@ -1051,7 +1057,7 @@ function PenghitungPenghasilan() {
                   <FormControl>
                     <Input
                       type="number"
-                         className="custom-input"
+                      className="custom-input"
                       placeholder="Harga Jual Biosolar"
                       step="1"
                       {...field}
@@ -1077,7 +1083,7 @@ function PenghitungPenghasilan() {
                     <Input
                       type="number"
                       placeholder="Takaran Awal Biosolar"
-                       className="custom-input"
+                      className="custom-input"
                       step="1"
                       {...field}
                       value={field.value || ""}
@@ -1093,35 +1099,35 @@ function PenghitungPenghasilan() {
 
             {/* Input Takaran Akhir */}
             <FormItem>
-        <FormLabel>Takaran Akhir Biosolar 1</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Biosolar 1 (Liter)"
-        value={takaranAkhir1Biosolar}
-        onChange={(e) => 
-        setTakaranAkhir1Biosolar(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
-  <FormItem>
-        <FormLabel>Takaran Akhir Biosolar 2</FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Biosolar 2 (Liter)"
-        value={takaranAkhir2Biosolar}
-        onChange={(e) => 
-        setTakaranAkhir2Biosolar(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
+              <FormLabel>Takaran Akhir Biosolar 1</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Biosolar 1 (Liter)"
+                  value={takaranAkhir1Biosolar}
+                  onChange={(e) =>
+                    setTakaranAkhir1Biosolar(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Biosolar 2</FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Biosolar 2 (Liter)"
+                  value={takaranAkhir2Biosolar}
+                  onChange={(e) =>
+                    setTakaranAkhir2Biosolar(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
             <FormItem>
               <FormLabel>Sisa Bio Solar yang tersedia</FormLabel>
               <FormControl>
@@ -1130,7 +1136,7 @@ function PenghitungPenghasilan() {
                   value={sisaBiosolar ?? ""}
                   disabled
                   placeholder="Sisa Bio Solar yang tersedia"
-                     className="custom-input"
+                  className="custom-input"
                 />
               </FormControl>
             </FormItem>
@@ -1142,7 +1148,7 @@ function PenghitungPenghasilan() {
                   value={hasilBiosolar ?? ""}
                   disabled
                   placeholder="Hasil Perhitungan Bio Solar"
-                     className="custom-input"
+                  className="custom-input"
                 />
               </FormControl>
             </FormItem>
@@ -1153,8 +1159,9 @@ function PenghitungPenghasilan() {
         <h2 className="text-xl font-bold">Penghasilan Pertamax Turbo</h2>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((values) => handleCalculate(values, 'turbo'))}
-      
+            onSubmit={form.handleSubmit((values) =>
+              handleCalculate(values, "turbo")
+            )}
           >
             <FormField
               control={form.control}
@@ -1166,7 +1173,7 @@ function PenghitungPenghasilan() {
                     <Input
                       type="number"
                       placeholder="Harga Jual Pertamax Turbo"
-                       className="custom-input"
+                      className="custom-input"
                       step="1"
                       {...field}
                       value={field.value || ""}
@@ -1191,7 +1198,7 @@ function PenghitungPenghasilan() {
                     <Input
                       type="number"
                       placeholder="Takaran Awal Pertamax Turbo"
-                       className="custom-input"
+                      className="custom-input"
                       step="1"
                       {...field}
                       value={field.value || ""}
@@ -1206,21 +1213,21 @@ function PenghitungPenghasilan() {
             />
 
             {/* Input Takaran Akhir */}
-               <FormItem>
-        <FormLabel>Takaran Akhir Pertamax Turbo </FormLabel>
-        <FormControl>
-        <Input
-        className="custom-input"
-        type="number"
-        step="1"
-        placeholder="Takaran Akhir Pertamax Turbo (Liter)"
-        value={takaranAkhir1Turbo}
-        onChange={(e) => 
-        setTakaranAkhir1Turbo(Number(e.target.value) || 0)
-        }
-      />
-  </FormControl>
-  </FormItem>
+            <FormItem>
+              <FormLabel>Takaran Akhir Pertamax Turbo </FormLabel>
+              <FormControl>
+                <Input
+                  className="custom-input"
+                  type="number"
+                  step="1"
+                  placeholder="Takaran Akhir Pertamax Turbo (Liter)"
+                  value={takaranAkhir1Turbo}
+                  onChange={(e) =>
+                    setTakaranAkhir1Turbo(Number(e.target.value) || 0)
+                  }
+                />
+              </FormControl>
+            </FormItem>
             {/* Hasil Perhitungan */}
             <FormItem>
               <FormLabel>Hasil Perhitungan</FormLabel>
@@ -1254,19 +1261,20 @@ function PenghitungPenghasilan() {
         <h2 className="text-xl font-bold">Hitung Penghasilan Total</h2>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit((values) => handleCalculate(values, 'total'))}
+            onSubmit={form.handleSubmit((values) =>
+              handleCalculate(values, "total")
+            )}
             className="spacehasil"
           >
             <FormField
               control={form.control}
               name="hargaJualPertalite"
               render={() => (
-
                 <FormItem>
                   <FormLabel>Penghasilan dari Pertalite</FormLabel>
                   <FormControl>
                     <Input
-                    className="custom-input"
+                      className="custom-input"
                       type="number"
                       value={hasilPertalite ?? ""}
                       disabled
@@ -1286,7 +1294,7 @@ function PenghitungPenghasilan() {
                   <FormLabel>Penghasilan dari Pertamax</FormLabel>
                   <FormControl>
                     <Input
-                    className="custom-input"
+                      className="custom-input"
                       type="number"
                       value={hasilPertamax ?? ""}
                       disabled
@@ -1305,7 +1313,7 @@ function PenghitungPenghasilan() {
                   <FormLabel>Penghasilan dari Dexlite</FormLabel>
                   <FormControl>
                     <Input
-                    className="custom-input"
+                      className="custom-input"
                       type="number"
                       value={hasilDexlite ?? ""}
                       disabled
@@ -1324,7 +1332,7 @@ function PenghitungPenghasilan() {
                   <FormLabel>Penghasilan dari Bio Solar</FormLabel>
                   <FormControl>
                     <Input
-                    className="custom-input"
+                      className="custom-input"
                       type="number"
                       value={hasilBiosolar ?? ""}
                       disabled
@@ -1343,8 +1351,7 @@ function PenghitungPenghasilan() {
                   <FormLabel>Penghasilan dari Pertamax Turbo</FormLabel>
                   <FormControl>
                     <Input
-
-                    className="custom-input"
+                      className="custom-input"
                       type="number"
                       value={hasilTurbo ?? ""}
                       disabled
@@ -1358,13 +1365,15 @@ function PenghitungPenghasilan() {
               {pengeluaranList.map((pengeluaran, index) => (
                 <div key={index} className="space-y-4">
                   <div>
-                    <label className="namapengeluaran">Nama Pengeluaran {index + 1}</label>
+                    <label className="namapengeluaran">
+                      Nama Pengeluaran {index + 1}
+                    </label>
                     <Controller
                       name={`pengeluaran.${index}.nama`}
                       control={form.control}
                       render={({ field }) => (
                         <Input
-                    className="custom-input"
+                          className="custom-input"
                           type="text"
                           {...field}
                           placeholder="Nama Pengeluaran"
@@ -1372,7 +1381,9 @@ function PenghitungPenghasilan() {
                           onChange={(e) =>
                             setPengeluaranList((prev) =>
                               prev.map((item, i) =>
-                                i === index ? { ...item, nama: e.target.value } : item
+                                i === index
+                                  ? { ...item, nama: e.target.value }
+                                  : item
                               )
                             )
                           }
@@ -1382,21 +1393,25 @@ function PenghitungPenghasilan() {
                   </div>
 
                   <div>
-                    <label className="nominalpengeluaran">Nominal Pengeluaran {index + 1}</label>
+                    <label className="nominalpengeluaran">
+                      Nominal Pengeluaran {index + 1}
+                    </label>
                     <Controller
                       name={`pengeluaran.${index}.nominal`}
                       control={form.control}
                       render={({ field }) => (
                         <Input
                           type="number"
-                    className="custom-input"
+                          className="custom-input"
                           placeholder="Nominal Pengeluaran"
                           {...field}
                           value={pengeluaran.nominal}
                           onChange={(e) =>
                             setPengeluaranList((prev) =>
                               prev.map((item, i) =>
-                                i === index ? { ...item, nominal: Number(e.target.value) } : item
+                                i === index
+                                  ? { ...item, nominal: Number(e.target.value) }
+                                  : item
                               )
                             )
                           }
@@ -1406,7 +1421,8 @@ function PenghitungPenghasilan() {
                   </div>
 
                   <div className="flex gap-4 mt-2">
-                    <Button className="buttonhapuspengeluaran"
+                    <Button
+                      className="buttonhapuspengeluaran"
                       type="button"
                       onClick={() => handleRemovePengeluaran(index)}
                       disabled={pengeluaranList.length === 1}
@@ -1418,14 +1434,17 @@ function PenghitungPenghasilan() {
               ))}
             </div>
 
-            <Button type="button" className="btn-add-pengeluaran" onClick={handleAddPengeluaran}>
-                 Tambahkan Pengeluaran
+            <Button
+              type="button"
+              className="btn-add-pengeluaran"
+              onClick={handleAddPengeluaran}
+            >
+              Tambahkan Pengeluaran
             </Button>
             <FormField
               control={form.control}
               name="pengeluaran"
               render={() => (
-
                 <FormItem className="formtotalhasil">
                   <FormLabel>Total hasil</FormLabel>
                   <FormControl>
@@ -1444,27 +1463,28 @@ function PenghitungPenghasilan() {
         </Form>
       </div>
       <div className="card card-button-container-vertical">
-  <Button
-    type="submit"
-    className="button-calculate"
-    onClick={form.handleSubmit((values) => handleCalculate(values, 'total'))}
-  >
-    <RiCalculatorFill size={32} color="white" className="my-icon" />
-    Hitung
-  </Button>
+        <Button
+          type="submit"
+          className="button-calculate"
+          onClick={form.handleSubmit((values) =>
+            handleCalculate(values, "total")
+          )}
+        >
+          <RiCalculatorFill size={32} color="white" className="my-icon" />
+          Hitung
+        </Button>
 
-  <Button
-    type="button"
-    className="button-simpan"
-    onClick={form.handleSubmit(handleSave)}
-  >
-    <RiSaveFill size={32} color="white" className="my-icon" />
-    Simpan
-  </Button>
-</div>
-
+        <Button
+          type="button"
+          className="button-simpan"
+          onClick={form.handleSubmit(handleSave)}
+        >
+          <RiSaveFill size={32} color="white" className="my-icon" />
+          Simpan
+        </Button>
+      </div>
     </div>
   );
 }
 
-export default PenghitungPenghasilan;
+export {TakaranInput,PenghitungPenghasilan};
