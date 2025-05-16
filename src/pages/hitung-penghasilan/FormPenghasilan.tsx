@@ -876,24 +876,9 @@ function PenghitungPenghasilan() {
                   type="number"
                   step="1"
                   placeholder="Takaran Akhir Pertamax 4 (Liter)"
-                  value={takaranAkhir2Pertamax}
+                  value={takaranAkhir4Pertamax}
                   onChange={(e) =>
                     setTakaranAkhir4Pertamax(Number(e.target.value) || 0)
-                  }
-                />
-              </FormControl>
-            </FormItem>
-            <FormItem>
-              <FormLabel>Takaran Akhir Pertamax 2</FormLabel>
-              <FormControl>
-                <Input
-                  className="custom-input"
-                  type="number"
-                  step="1"
-                  placeholder="Takaran Akhir Pertamax 2 (Liter)"
-                  value={takaranAkhir2Pertamax}
-                  onChange={(e) =>
-                    setTakaranAkhir2Pertamax(Number(e.target.value) || 0)
                   }
                 />
               </FormControl>
@@ -913,6 +898,7 @@ function PenghitungPenghasilan() {
                 />
               </FormControl>
             </FormItem>
+       
             <FormItem>
               <FormLabel>Sisa Pertamax yang tersedia</FormLabel>
               <FormControl>
